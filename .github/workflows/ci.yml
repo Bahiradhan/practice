@@ -1,0 +1,24 @@
+name: Build and Run C Program
+
+# 1. Triggers: when to run this workflow
+on:
+  pull_request:           # run when a PR targets main
+    branches: [ main ]
+  push:                  # also run when something is pushed to main
+    branches: [ main ]
+
+# 2. Jobs: one or more independent units of work
+jobs:
+  build-and-run:          # arbitrary job ID
+    runs-on: ubuntu-latest  # GitHub-hosted runner (Ubuntu VM)
+
+    steps:                # ordered list of actions in this job
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: make all
+
+      - name: Run executable
+        run: ./hello
+
